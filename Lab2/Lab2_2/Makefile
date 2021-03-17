@@ -1,4 +1,5 @@
--C 'Lab2_2/'
+	-C 'Lab2_2/'
+	
 Lab2_2: Lab2_2.c
 	gcc Lab2_2.c -pedantic -std=c89 -o Lab2_2.exe
 
