@@ -3,7 +3,7 @@
 
 #define TANGERIAN_PRICE_USD 1.14
 #define PEACHES_PRICE_USD 1.0
-#define GRAPE_PRICE_USD 1.25
+#define GRAPE_PRICE_USD 1.28
 
 unsigned int getValidUInt();
 double getValidUDouble();
