@@ -21,7 +21,7 @@ jobs:
       
       - name: Build2
         run: |
-          $(MAKE) 
+          make Lab2_1_Test
           ./Lab2_1_Test
           make Lab2_2_Test 
           ./Lab2_2_Test
