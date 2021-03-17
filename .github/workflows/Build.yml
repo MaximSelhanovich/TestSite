@@ -2,7 +2,9 @@ name: build-and-test
 
 on:
   push:
-    paths: [Lab1, Lab2]
+    paths:
+      - 'Lab1/**'
+      - 'Lab2/**'
 
 jobs:
 
