@@ -61,5 +61,5 @@ int main() {
     testCalculateDiscount();
     testCalculateDeliveryPrice();
     testcalculateTotalOrderPrice();
-    printf("\n\nAll tests completed succesfuly.");
+    printf("\n\nAll tests completed succesfuly. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 }
