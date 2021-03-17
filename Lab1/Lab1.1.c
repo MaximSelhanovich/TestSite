@@ -10,6 +10,7 @@ void hoursPrint (unsigned const int hours) {
     }
 }
 
+
 void minutesPrint (unsigned const int minutes) {
     if (minutes % 60 < 10) {
         printf("0%d", minutes % 60);
