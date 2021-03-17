@@ -18,9 +18,9 @@ int main() {
     }
 
     x = simplifyAngleDegrees(x);
-    printf("Angle id degrees: %lf\n", x);
+    printf("Angle id degrees: %f\n", x);
     x = degreesToRadians(x);
-    printf("Angle in radians: %lf\n", x);
+    printf("Angle in radians: %f\n", x);
 
     printf("\nIterative");
     calcSineDecompositionIterative(x, calculationsError);
@@ -36,7 +36,7 @@ double getValidDouble() {
     double temp;
     char goodCheck;
 
-    while(!scanf("%lf", &temp) ||
+    while(!scanf("%f", &temp) ||
           !scanf("%c", &goodCheck) || goodCheck != '\n') {
         printf("Wrong input!\nPlease, try again: ");
         fflush(stdin);
@@ -67,9 +67,9 @@ int calcSineDecompositionIterative(double x, double calculationsError) {
 
         decompositionSumX += sign * intermediateTerm;
         calculationAccuracy = fabs(decompositionSumX - sinX);
-        printf("\nResult of sin(x) function:            %lf\n"
-               "Result on %3d step of decomposition:  %lf\n"
-               "Calculation accuracy:                 %lf\n\n",
+        printf("\nResult of sin(x) function:            %f\n"
+               "Result on %3d step of decomposition:  %f\n"
+               "Calculation accuracy:                 %f\n\n",
                 sinX, number, decompositionSumX, calculationAccuracy);
         sign *= -1;
         powOfX += 2;
@@ -95,9 +95,9 @@ int calcSineDecompositionRecursion(double x, double sumX, double calculationsErr
     sumX += sign * intermediateTerm;
     calculationAccuracy = fabs(sumX - sinX);
 
-    printf("\nResult of sin(x) function:            %lf\n"
-           "Result on %3d step of decomposition:  %lf\n"
-           "Calculation accuracy:                 %lf\n\n",
+    printf("\nResult of sin(x) function:            %f\n"
+           "Result on %3d step of decomposition:  %f\n"
+           "Calculation accuracy:                 %f\n\n",
             sinX, numberRecursion, sumX, calculationAccuracy);
 
     if(calculationAccuracy > calculationsError) {
