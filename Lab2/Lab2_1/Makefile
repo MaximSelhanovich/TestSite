@@ -15,7 +15,7 @@ Lab2_1: $(OBJ)
 	$(MAKE) -C subdir
 	$(CC) $(CFLAGS) $(OBJ) -o Lab1_2
 Lab2_1_Test: $(OBJ_TEST)
-	$(MAKE) -C
+	cd $(@D)
 	$(CC) $(CFLAGS) $(OBJ_TEST) -o Lab2_1_Test -Dmain=_main $(LIBS)
 
 .PHONY: clean
