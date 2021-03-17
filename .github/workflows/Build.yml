@@ -21,7 +21,6 @@ jobs:
       
       - name: Build2
         run: |
-          cd Lab2/Lab2_1/
           make Lab2_1_Test 
           ./Lab2_1_Test
           cd ../Lab2_2  
