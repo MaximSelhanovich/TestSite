@@ -2,5 +2,4 @@ Lab2_2: Lab2_2.c
 	gcc Lab2_2.c -pedantic -std=c89 -o Lab2_2.exe
 
 Lab2_2_Test: Lab2_2.c Lab2_2_Test.c
-	-C Lab2_2/
 	gcc Lab2_2.c Lab2_2_Test.c -pedantic -std=c89 -o Lab2_2_Test -Dmain=_main -lm
