@@ -20,4 +20,4 @@ Lab2_1_Test: $(OBJ_TEST)
 
 #.PHONY: clean
 clean:
-   del *.exe
+	del *.exe
