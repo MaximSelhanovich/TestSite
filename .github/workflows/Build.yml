@@ -26,4 +26,4 @@ jobs:
           ./Lab2_1_Test
           cd ../Lab2_2  
           make Lab2_2_Test 
-          ./Lab2_2_Test
+          ./Lab2_2_Test.exe
