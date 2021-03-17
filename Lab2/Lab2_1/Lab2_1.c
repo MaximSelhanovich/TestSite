@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include "Lab2_1.h"
 
