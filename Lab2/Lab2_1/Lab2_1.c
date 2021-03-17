@@ -7,15 +7,6 @@
     GRAPE
 };
 
-
-
-
-
-
-
-
-
-
 int main() {
 
     double shoppingCart[] = {0, 0, 0};
