@@ -1,3 +1,4 @@
+-C Lab2_2/
 CC = gcc
 CFLAGS = -std=c89 -pedantic -Wall
 LIBS = -lm
