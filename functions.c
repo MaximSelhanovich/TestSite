@@ -22,7 +22,7 @@ float CostOfTheCustoms(unsigned int year, unsigned int value)
     {
         customs = 0.6 * 3.11 * value;
     }
-    else if (year >= 3 && year < 10)
+    else if (year < 10)
     {
         if (value > 2500)
         {
@@ -33,7 +33,7 @@ float CostOfTheCustoms(unsigned int year, unsigned int value)
             customs = 0.6 * 3.11 * value;    
         }
     }
-    else if (year >= 10 && year < 14)
+    else if (year < 14)
     {
         customs = 0.6 * 3.11 * value;
     }
@@ -41,7 +41,7 @@ float CostOfTheCustoms(unsigned int year, unsigned int value)
     {
         customs = 2.0 * 3.11 * value;
     }
-    result = roundf(customs * 10000) / 10000;
+    result = roundf(customs * 10000.0) / 10000.0;
     return result;
 }
 
