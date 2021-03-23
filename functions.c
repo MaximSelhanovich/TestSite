@@ -37,7 +37,7 @@ float CostOfTheCustoms(unsigned int year, unsigned int value)
     {
         customs = 0.6 * 3.11 * value;
     }
-    else (year >= 14)
+    else
     {
         customs = 2.0 * 3.11 * value;
     }
