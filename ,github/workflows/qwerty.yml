@@ -2,9 +2,7 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [ Lab2_Task1 ]
   pull_request:
-    branches: [ Lab2_Task1 ]
 
 jobs:
 
