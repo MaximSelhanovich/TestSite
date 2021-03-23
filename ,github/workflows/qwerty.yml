@@ -1,0 +1,26 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ Lab2_Task1 ]
+  pull_request:
+    branches: [ Lab2_Task1 ]
+
+jobs:
+
+  build:
+  
+    runs-on: ubuntu-latest
+
+    steps:
+    
+      - uses: actions/checkout@v1
+      - name: install valgrind and cpplint
+      
+        run: |
+          sudo apt install valgrind
+          sudo pip install cpplint
+      - name: compiling and test
+        
+        run: |
+           make
