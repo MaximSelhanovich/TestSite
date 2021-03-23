@@ -11,7 +11,7 @@ void clrscr()
 float CostOfTheDistillation(unsigned int distance)
 {
     float distillation = 3.11 * 0.5 * distance;
-    float result = roundf(distillation * 10000) / 10000;
+    float result = roundf(distillation * 10000.0) / 10000.0;
     return result;
 }
 
