@@ -6,7 +6,7 @@
 #undef main
 int main() {
   printf("\n\n %f \n\n", fabs(CostOfTheDistillation(10) - 15.55));
-  assert(fabs(CostOfTheDistillation(10) - 15.55) > 10);
+  assert(fabs(CostOfTheDistillation(10) - 15.55) < 0.01);
   assert(fabs(CostOfTheCustoms(2, 3300) - 3.73) < 0.01);
   assert(fabs(TotalCostInByn(10000, 10, 2, 3300) - 31119.28) < 0.01);
   return 0;
