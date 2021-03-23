@@ -2,16 +2,16 @@
 
 int main()
 {
-    uint64_t n;
+    unsigned int n;
     int choice, x;
     float right, left, angle;
     char answer = 'y';
     while (answer == 'y')
     {
         printf("Enter n: ");
-        while (scanf("%lu", &n) != 1) 
+        while (scanf("%u", &n) != 1) 
         {
-            if (scanf("%lu", &n) != 1) 
+            if (scanf("%u", &n) != 1) 
             {
                 printf("Incorrect input, try again!");  
                 printf("\nn = ");
