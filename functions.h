@@ -1,4 +1,3 @@
-#include <stdint.h>
 
 unsigned int CountFactorialRec(unsigned int n);
 unsigned int CountFactorialIter(unsigned int n);
