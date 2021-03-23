@@ -5,6 +5,7 @@
 
 #undef main
 int main() {
+  printf("\n\n\n %f \n\n\n", fabs(CountRightRec(2, 30 * 3.14 / 180) - 0.475557));
   assert(fabs(CountRightRec(2, 30 * 3.14 / 180) - 0.475557) < 0.000001);
   assert(fabs(CountRightIter(3, 60 * 3.14 / 180) - 0.748198) < 0.000001);
   printf("Scooooooooooby-Doooooooby-Doooooo");
