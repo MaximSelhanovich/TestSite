@@ -2,7 +2,7 @@
 #include <math.h>
 #include "functions.h"
 
-uint64_t CountFactorialRec(uint64_t n)
+unsigned int CountFactorialRec(unsigned int n)
 {
     if(n == 1 ||n == 0)
     {
@@ -14,7 +14,7 @@ uint64_t CountFactorialRec(uint64_t n)
     }
 }
 
-uint64_t CountFactorialIter(uint64_t n) 
+unsigned int CountFactorialIter(unsigned int n) 
 {
     if (n == 1 || n == 0)
     {
@@ -31,7 +31,7 @@ uint64_t CountFactorialIter(uint64_t n)
     }
 }
 
-float CountRightRec(uint64_t n, float angle)
+float CountRightRec(unsigned int n, float angle)
 {
     if (n == 0)
     {
@@ -45,7 +45,7 @@ float CountRightRec(uint64_t n, float angle)
     }
 }
 
-float CountRightIter(uint64_t n, float angle) 
+float CountRightIter(unsigned int n, float angle) 
 {
     if (n == 0)
     {
