@@ -17,12 +17,12 @@ float CostOfTheDistillation(unsigned int distance)
 
 float CostOfTheCustoms(unsigned int year, unsigned int value)
 {
-    float customs, result;
+    float customs = 1, result;
     if(year < 3)
     {
         customs = 0.6 * 3.11 * value;
     }
-    if (year >= 3 && year < 10)
+    else if (year >= 3 && year < 10)
     {
         if (value > 2500)
         {
@@ -33,11 +33,11 @@ float CostOfTheCustoms(unsigned int year, unsigned int value)
             customs = 0.6 * 3.11 * value;    
         }
     }
-    if (year >= 10 && year < 14)
+    else if (year >= 10 && year < 14)
     {
         customs = 0.6 * 3.11 * value;
     }
-    if (year >= 14)
+    else (year >= 14)
     {
         customs = 2.0 * 3.11 * value;
     }
