@@ -5,13 +5,8 @@
 
 #undef main
 int main() {
-  printf("\n\n %f \n\n", fabs(CostOfTheDistillation(10) - 15.55));
-  assert(fabs(CostOfTheDistillation(10) - 15.55) < 0.01);
-  
-  printf("\n\n %f \n\n", fabs(CostOfTheCustoms(2, 3300) - 3.73));
-  assert(fabs(CostOfTheCustoms(2, 3300) - 3.73) < 0.01);
-  
-  printf("\n\n %f \n\n", fabs(TotalCostInByn(10000, 10, 2, 3300) - 31119.28));
-  assert(fabs(TotalCostInByn(10000, 10, 2, 3300) - 31119.28) < 0.01);
+  assert(fabs(CountRightRec(2, 30 * 3.14 / 180) - 0.475557) < 0.000001);
+  assert(fabs(CountRightIter(3, 60 * 3.14 / 180) - 0.748198) < 0.000001);
+  printf("Scooooooooooby-Doooooooby-Doooooo");
   return 0;
 }

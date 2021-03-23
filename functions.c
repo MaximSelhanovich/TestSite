@@ -1,88 +1,63 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include "functions.h"
 #include <math.h>
+#include "functions.h"
 
-void clrscr()
+uint64_t CountFactorialRec(uint64_t n)
 {
-    system("@cls || clear");
+    if(n == 1 ||n == 0)
+    {
+        return 1;
+    }
+    else 
+    {
+        return ((2 * n - 1) * CountFactorialRec(n - 1));
+    }
 }
 
-float CostOfTheDistillation(unsigned int distance)
+uint64_t CountFactorialIter(uint64_t n) 
 {
-    float distillation = 3.11 * 0.5 * distance;
-    float result = roundf(distillation * 10000.0) / 10000.0;
-    return result;
-}
-
-float CostOfTheCustoms(unsigned int year, unsigned int value)
-{
-    float customs = 1, result;
-    if(year < 3)
+    if (n == 1 || n == 0)
     {
-        customs = 0.6 * 3.11 * value;
-    }
-    else if (year < 10)
-    {
-        if (value > 2500)
-        {
-            customs = 0.3 * 3.11 *value;
-        }
-        else
-        {
-            customs = 0.6 * 3.11 * value;    
-        }
-    }
-    else if (year < 14)
-    {
-        customs = 0.6 * 3.11 * value;
+        return 1;    
     }
     else
     {
-        customs = 2.0 * 3.11 * value;
+        int i, result = 1;
+        for (i = 1; i <= n; i++)
+        {
+            result *= (2*i - 1);
+        }
+        return result;
     }
-    result = roundf(customs * 10000.0) / 10000.0;
-    return result;
 }
 
-float TotalCostInByn(unsigned int cost, unsigned int distance, unsigned int year, unsigned int value)
+float CountRightRec(uint64_t n, float angle)
 {
-    float total = 3.11 * cost + CostOfTheDistillation(distance) + CostOfTheCustoms(year, value);
-    float result = roundf(total * 10000) / 10000;
-    return result;
-}
-
-void PresentData(unsigned int distance, unsigned int year,  unsigned int value,  unsigned int cost)
-{
-    printf("The cost of the distillation of the car: %.2f", CostOfTheDistillation(distance));
-    printf("\nThe cost of the customs of the car: %.2f", CostOfTheCustoms(year, value));
-    printf("\nThe total cost of the car (in byn): %.2f\n", TotalCostInByn(cost, distance, year, value));
-}
-
-void Menu()
-{
-    printf("1. Enter the cost of the car\n");
-    printf("2. Enter the year of issue of the car\n");
-    printf("3. Enter the engine volume of the car\n");
-    printf("4. Enter the run distance of the car\n");
-    printf("5. Calculation of the cost of the service\n");
-    printf("6. Information about the version and the author of the program\n");
-    printf("7. Exit the program\n");
-}
-
-unsigned int EnterTheNumber(unsigned int number)
-{
-    scanf("%u", &number);
-    while(number > 7)
+    if (n == 0)
     {
-        printf("Sorry, there is no function with this number, please re-enter\n");
-        printf("Enter the number of the function: ");
-        scanf("%u", &number); 
+        return 0;
     }
-    return number;
+    else
+    {
+        float result = 0.;
+        result += pow(-1, n - 1) * powf(angle, (2 * n) - 1) / CountFactorialRec(n);
+        return (result + CountRightRec(n - 1, angle));
+    }
 }
 
-void Information() 
+float CountRightIter(uint64_t n, float angle) 
 {
-    printf("The author: Mary Zyryanova\nThe version of the program: C98\n");
+    if (n == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        float i, right = 0.;
+        for (i = 1.; i <= n; i++)
+        {
+            right += pow(-1, (i - 1)) * powf(angle, ((2 * i) - 1)) / CountFactorialIter(i);
+        }
+        return right;
+    }
 }

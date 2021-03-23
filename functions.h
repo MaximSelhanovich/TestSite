@@ -1,8 +1,6 @@
-void clrscr();
-void PresentData(unsigned int distance, unsigned int year, unsigned int value, unsigned int cost);
-void Menu();
-unsigned int EnterTheNumber(unsigned int number);
-float CostOfTheDistillation(unsigned int distance);
-float CostOfTheCustoms(unsigned int year, unsigned int value);
-float TotalCostInByn(unsigned int cost, unsigned int distance, unsigned int year, unsigned int value);
-void Information() ;
+#include <stdint.h>
+
+uint64_t CountFactorialRec(uint64_t n);
+uint64_t CountFactorialIter(uint64_t n) ;
+float CountRightRec(uint64_t n, float angle);
+float CountRightIter(uint64_t n, float angle);
