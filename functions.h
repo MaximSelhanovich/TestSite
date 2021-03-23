@@ -1,6 +1,6 @@
 #include <stdint.h>
 
-uint64_t CountFactorialRec(uint64_t n);
-uint64_t CountFactorialIter(uint64_t n) ;
-float CountRightRec(uint64_t n, float angle);
-float CountRightIter(uint64_t n, float angle);
+unsigned int CountFactorialRec(unsigned int n);
+unsigned int CountFactorialIter(unsigned int n);
+float CountRightRec(unsigned int n, float angle);
+float CountRightIter(unsigned int n, float angle);
