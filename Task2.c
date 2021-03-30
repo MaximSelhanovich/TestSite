@@ -13,9 +13,8 @@ int main() {
         return 1;
     }
 
-    for(; i < columnsNumber; ++i) {
-        array[i] = (int *)malloc(columnsNumber * sizeof(int *));
-        if (i == 3) array[i] =NULL;
+    for(; i < rowsNumber; ++i) {
+        array[i] = (int *)malloc(columnsNumber * sizeof(int));
         if(!array[i]) {
             printf("Poshel nafig x2\n\n%d\n\n", i);
             success = 0;
