@@ -3,7 +3,6 @@
 #include <time.h>
 #include <malloc.h>
 
-
 void surround(int a, int b, int f, int size, int** field)
 {   
     int  i, j;
@@ -37,6 +36,7 @@ void surround(int a, int b, int f, int size, int** field)
         }
     }
 }
+
 void fill(int** field)
 {
     int i, j;
