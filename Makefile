@@ -12,4 +12,4 @@ valgrind_check:
 	valgrind ./Task2
 	
 linter_check:
-	cpp Task2.c
+	cpplint Task2.c
