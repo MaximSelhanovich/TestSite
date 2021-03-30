@@ -3,6 +3,7 @@
 #include <time.h>
 #include <malloc.h>
 
+
 void surround(int a, int b, int f, int size, int** field)
 {   
     int  i, j;
@@ -36,7 +37,6 @@ void surround(int a, int b, int f, int size, int** field)
         }
     }
 }
-
 void fill(int** field)
 {
     int i, j;
@@ -76,54 +76,75 @@ void printField(int** field)
     }
 }
 
+int horizontalCheck (int** field, int x, int y, int size) {
+    int i = 0;
+    if (x + size - 1 > 9) return 0;
+    
+    for (i = 0; i < size; ++i) {
+        if (field[x + i][y] != 0) return 0;
+    }
+    return 1;
+}
+
+int horizontalFill (int** field, int x, int y, int size) {
+    int i = 0;
+    
+    for (i = 0; i < size; ++i) {
+        field[x + i][y] = size;
+    }
+    return 1;
+}
+
+int verticalFill (int** field, int x, int y, int size) {
+    int i = 0;
+    
+    for (i = 0; i < size; ++i) {
+        field[x][y + i] = size;
+    }
+    return 1;
+}
+
+int verticalCheck (int** field, int x, int y, int size) {
+    int i = 0;
+    if (y + size - 1 > 9) return 0;
+    
+    for (i = 0; i < size; ++i) {
+        if (field[x][y + i] != 0) return 0;
+    }
+    return 1;
+}
+
 void place(int** field)
 {
-    int i, jm1, a, b, k, f;
+    int type, fillIndex = 0, x, y, amount, verticalFlaf ;
 
-    for (i = 4; i > 0; i--)
+    for (type = 4; type > 0; type--)
     {
-        for (k = 4 - i + 1; k > 0; k--)
+        for (amount = 4 - type + 1; amount > 0; amount--)
         {
-            for (jm1 = 0; jm1 < i; jm1++)                  
+            while (fillIndex == 0) 
             {
-                if (jm1 == 0)
+                do
                 {
-                    do
-                    {
-                        a = rand() % (9 - (0) + 1) + (0);
-                        b = rand() % (9 - (0) + 1) + (0);
-                    } while (field[a][b] != 0);
-                }
-                if (a + jm1 < 10 && field[a + jm1][b] == 0)
+                    x = rand() % 10;
+                    y = rand() % 10;
+                } while (field[x][y] != 0);
+
+                if (horizontalCheck(field, x, y, type) == 1)
                 {
-                    field[a + jm1][b] = i;
-                    f = 0;
+                    fillIndex = horizontalFill(field, x, y, type);
+                    verticalFlaf = 0;
                 }
                 else
                 {
-                    if (f == 0) {
-                        for (jm1--; jm1 > 0; jm1--)   /*erasing*/
-                        {
-                            field[a + jm1][b] = 0;
-                        }
-                        jm1++;
-                    }
-
-                    if (field[a][b + jm1] == 0)
+                    if (verticalCheck(field, x, y, type) == 1)
                     {
-                        field[a][b + jm1] = i;
-                        f = 1;
-                    }
-                    else
-                    {
-                        for (jm1 --; jm1 >= 0; jm1--)
-                        {
-                            field[a][b + jm1] = 0;
-                        }
+                        fillIndex = verticalFill(field, x, y, type);
+                        verticalFlaf = 1;
                     }
                 }
             }
-            surround(a, b, f, i , field);
+            surround(x, y, verticalFlaf, type , field);
         }
     }
 }
