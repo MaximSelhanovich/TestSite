@@ -15,8 +15,7 @@ int surround(int x, int y, int verticalFlaf, int type, int** field) {
                 }
             }
         }
-    }
-    else {
+    } else {
         for (i = x - 1; i <= x + type; i++) {
             if (i >= 0 && i < 10) {
                 for (j = y - 1; j <= y + 1; j++) {
@@ -42,7 +41,7 @@ void clear(int** field) {
     int i, j;
     for (i = 0; i < 10; i++) {
         for (j = 0; j < 10; j++) {
-            if(field[i][j] == 8) field[i][j] = 0;
+            if (field[i][j] == 8) field[i][j] = 0;
         }
     }
 }
@@ -60,7 +59,7 @@ void printField(int** field) {
 int horizontalCheck(int** field, int y, int x, int size) {
     int i = 0;
     if (x + size - 1 > 9) return 0;
-    
+
     for (i = 0; i < size; ++i) {
         if (field[y][x + i] != 0) return 0;
     }
@@ -111,8 +110,7 @@ void place(int** field) {
                 if (horizontalCheck(field, y, x, type) == 1) {
                     fillIndex = horizontalFill(field, y, x, type);
                     verticalFlaf = 1;
-                }
-                else {
+                } else {
                     if (verticalCheck(field, y, x, type) == 1) {
                         fillIndex = verticalFill(field, y, x, type);
                         verticalFlaf = 0;
@@ -138,7 +136,7 @@ int checkShips(int** field) {
 int main(void) {
     int n = 10, m = 10, i, amount;
     int** field = (int**)malloc(n * sizeof(int*));
-    
+
     for (i = 0; i < n; i++) {
         field[i] = (int*)malloc(m * sizeof(int));
     }
