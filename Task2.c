@@ -1,73 +1,42 @@
-#include "functions.c"
+#include <stdio.h>
+#include <malloc.h>
 
-int main()
-{
-    unsigned int n;
-    int choice, x;
-    float right, left, angle;
-    char answer = 'y';
-    while (answer == 'y')
-    {
-        printf("Enter n: ");
-        while (scanf("%u", &n) != 1) 
-        {
-            if (scanf("%u", &n) != 1) 
-            {
-                printf("Incorrect input, try again!");  
-                printf("\nn = ");
-                while(getchar() != '\n') {}
-            }
-        }
-        printf("Enter x: ");
-        while (scanf("%d", &x) != 1) 
-        {
-            if (scanf("%d", &x) != 1) 
-            {
-                printf("Incorrect input, try again!");  
-                printf("\nx = ");
-                while(getchar() != '\n') {}
-            }
-        }
-        printf("How do you want to count?\n     1.Using recursion\n     2.Using iterating\n     Answer: ");
-        while (scanf("%d", &choice) != 1) 
-        {
-            if (scanf("%d", &choice) != 1) 
-            {
-                printf("Incorrect input, try again!");  
-                printf("\nyour choice = ");
-                while(getchar() != '\n') {}
-            }
-        }
-        angle = x * 3.14 / 180;
-        left = sin(angle);
-        switch (choice)
-        {
-            case 1:
-            {
-                right = CountRightRec(n, angle);
-                printf("The result in the left: %f\n", left);
-                printf("The result in the right %f\n", right);
-                break;
-            }
-            case 2:
-            {
-                right = CountRightIter(n, angle);
-                printf("The result in the left: %f\n", left);
-                printf("The result in the right %f\n", right);
-                break;
-            }
-        }
-        printf("Do you want to try again?\nAnswer: ");
-        scanf("%s", &answer);
-        while(1)
-        {
-            if(answer == 'y' || answer == 'n')
-            {
-                break;
-            } else {
-                printf("Incorrect input, try again!");
-                scanf("%s", &answer);
-            }
+int main() {
+    int i = 0, success = 1, rowsNumber = 10, columnsNumber =10;
+    int **array = NULL;
+
+    array = (int **)malloc(rowsNumber * sizeof(int *));
+    if(!array) {
+        printf("Poshel nafig\n");
+        free(array);
+        array = NULL;/*This may be nesessary if programm contiue working*/
+        return 1;
+    }
+
+    for(; i < columnsNumber; ++i) {
+        array[i] = (int *)malloc(columnsNumber * sizeof(int *));
+        if (i == 3) array[i] =NULL;
+        if(!array[i]) {
+            printf("Poshel nafig x2\n\n%d\n\n", i);
+            success = 0;
+            break;
         }
     }
+
+    if (success == 0) {
+        for (; i >= 0; i--) { 
+            free(array[i]);
+            printf("\n\n%d\n\n", i);
+        }
+        free(array);
+        printf("\n\n%d\n\n", i);
+        array = NULL;/*This may be nesessary if programm contiue working*/
+        return 1;
+    }
+
+
+
+    for(i = 0; i < rowsNumber; ++i) free(array[i]);
+    free(array);
+    return 0;
 }
