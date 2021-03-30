@@ -3,16 +3,15 @@
 #include <time.h>
 #include <malloc.h>
 
-
-void surround(int a, int b, int f, int size, int** field)
+int surround(int x, int y, int verticalFlaf, int type, int** field)
 {   
     int  i, j;
-    if (f == 1)
+    if (verticalFlaf == 1)
     {
-        for (i = a - 1; i <= a + 1; i++)
+        for (i = x - 1; i <= x + 1; i++)
         {
             if (i >= 0 && i < 10) {
-                for (j = b - 1; j <= b + size; j++)
+                for (j = y - 1; j <= y + type; j++)
                 {
                     if (j >= 0 && j < 10 && field[i][j] == 0)
                     {
@@ -24,11 +23,11 @@ void surround(int a, int b, int f, int size, int** field)
     }
     else
     {
-        for (i = a - 1; i <= a + size; i++)
+        for (i = x - 1; i <= x + type; i++)
         {
             if (i >= 0 && i < 10) 
             {
-                for (j = b - 1; j <= b + 1; j++)
+                for (j = y - 1; j <= y + 1; j++)
                 {
                     if (j >= 0 && j < 10 && field[i][j] == 0)
                         field[i][j] = 8;
@@ -36,6 +35,7 @@ void surround(int a, int b, int f, int size, int** field)
             }
         }
     }
+    return 0;
 }
 void fill(int** field)
 {
@@ -116,7 +116,7 @@ int verticalCheck (int** field, int x, int y, int size) {
 
 void place(int** field)
 {
-    int type, fillIndex = 0, x, y, amount, verticalFlaf ;
+    int type, fillIndex = 0, y, x, amount, verticalFlaf;
 
     for (type = 4; type > 0; type--)
     {
@@ -126,28 +126,31 @@ void place(int** field)
             {
                 do
                 {
-                    x = rand() % 10;
                     y = rand() % 10;
-                } while (field[x][y] != 0);
-
-                if (horizontalCheck(field, x, y, type) == 1)
+                    x = rand() % 10;
+                } while (field[y][x] != 0);
+                
+                if (horizontalCheck(field, y, x, type) == 1)
                 {
-                    fillIndex = horizontalFill(field, x, y, type);
-                    verticalFlaf = 0;
+                    printf("\n\n%d\n\n%d\n\n", x, y);
+                    fillIndex = horizontalFill(field, y, x, type);
+                    verticalFlaf = 1;
                 }
                 else
                 {
-                    if (verticalCheck(field, x, y, type) == 1)
+                    printf("\n\n%d\n\n%d\n\n", x, y);
+                    if (verticalCheck(field, y, x, type) == 1)
                     {
-                        fillIndex = verticalFill(field, x, y, type);
-                        verticalFlaf = 1;
+                        fillIndex = verticalFill(field, y, x, type);
+                        verticalFlaf = 0;
                     }
                 }
             }
-            surround(x, y, verticalFlaf, type , field);
+            surround(y, x, verticalFlaf, type , field);
         }
     }
 }
+
 int checkShips(int** field)
 {
     int i, j, countSh = 0;
