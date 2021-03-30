@@ -1,4 +1,4 @@
-useful: buildTest test valgrind_check linter_check
+useful: buildMain valgrind_check linter_check
 buildMain: Task2.c
 	gcc -std=c89 -o Task2 Task2.c -lm
 
@@ -6,11 +6,10 @@ buildTest: test.c
 	gcc -std=c89 -o test -Dmain=_main Task2.c test.c -pedantic -lm
 
 test:
-	./test
+	./Task2
 	
 valgrind_check:
-	echo "2\n30\n1\ny\n3\n60\n2\nn" > input.txt
-	valgrind ./test < input.txt
+	valgrind ./Task2
 	
 linter_check:
 	cpp Task2.c
