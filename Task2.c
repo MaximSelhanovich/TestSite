@@ -1,196 +1,126 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <malloc.h>
+/*
+ * 3.2 (5). Король и ферзи. На шахматной доске находятся король и несколько
+  ферзей другого цвета. Проверить, находится ли король под угрозой и
+  если да, кто ему угрожает. Положение фигур задано массивом k(8,
+  8): 0 – клетка пуста, 1 – король, 2 – ферзь.
+ * */
 
-int surround(int x, int y, int verticalFlaf, int type, int** field)
-{   
-    int  i, j;
-    if (verticalFlaf == 1)
-    {
-        for (i = x - 1; i <= x + 1; i++)
-        {
-            if (i >= 0 && i < 10) {
-                for (j = y - 1; j <= y + type; j++)
-                {
-                    if (j >= 0 && j < 10 && field[i][j] == 0)
-                    {
-                        field[i][j] = 8;
-                    }
-                }
-            }
-        }
-    }
-    else
-    {
-        for (i = x - 1; i <= x + type; i++)
-        {
-            if (i >= 0 && i < 10) 
-            {
-                for (j = y - 1; j <= y + 1; j++)
-                {
-                    if (j >= 0 && j < 10 && field[i][j] == 0)
-                        field[i][j] = 8;
-                }
-            }
-        }
-    }
-    return 0;
-}
-void fill(int** field)
-{
-    int i, j;
-    for (i = 0; i < 10; i++)
-    {
-        for (j = 0; j < 10; j++)
-        {
-            field[i][j] = 0;
-        }
-    }
-}
+#include "main.h"
 
-void clear(int** field)
-{
-    int i, j;
-    for (i = 0; i < 10; i++)
-    {
-        for (j = 0; j < 10; j++)
-        {
-            if(field[i][j] == 8)
-            field[i][j] = 0;
-        }
+figure** init_board(void) {
+  figure** board;
+  int num_queens;
+  int i, j;
+  
+  if (!(board = malloc(sizeof(figure*) * 8))) {
+    fprintf(stderr, "Don't launch this on a calculator\n");
+    exit(EXIT_FAILURE);
+  }
+  
+  for (i = 0; i < 8; i++) {
+    if (!(board[i] = malloc(sizeof(figure) * 8))) {
+      fprintf(stderr, "Don't launch this on a calculator\n");
+      exit(EXIT_FAILURE);
     }
-
-}
-
-void printField(int** field)
-{
-    int i, j;
-    for (i = 0; i < 10; i++)
-    {
-        for (j = 0; j < 10; j++)
-        {
-            printf("%d  ", field[i][j]);
-        }
-        printf("\n");
-    }
-}
-
-int horizontalCheck (int** field, int x, int y, int size) {
-    int i = 0;
-    if (x + size - 1 > 9) return 0;
     
-    for (i = 0; i < size; ++i) {
-        if (field[x + i][y] != 0) return 0;
+    for (j = 0; j < 8; j++) {
+      board[i][j] = EMPTY;
     }
-    return 1;
+  }
+  
+  num_queens = rand() % 8;
+  
+  for (i = 0; i < num_queens; i++) {
+    board[rand() % 8][rand() % 8] = QUEEN;
+  }
+  
+  board[rand() % 8][rand() % 8] = KING;
+  
+  return board;
 }
 
-int horizontalFill (int** field, int x, int y, int size) {
-    int i = 0;
-    
-    for (i = 0; i < size; ++i) {
-        field[x + i][y] = size;
-    }
-    return 1;
+void clear_board(figure** board) {
+  int i;
+  
+  for (i = 0; i < 8; i++) {
+    free(board[i]);
+  }
+  free(board);
 }
 
-int verticalFill (int** field, int x, int y, int size) {
-    int i = 0;
-    
-    for (i = 0; i < size; ++i) {
-        field[x][y + i] = size;
-    }
-    return 1;
+bool is_queen_threatening(field queen_pos, field king_pos) {
+  field delta;
+  delta.x = queen_pos.x - king_pos.x;
+  delta.y = queen_pos.y - king_pos.y;
+  
+  if (delta.x == 0 || delta.y == 0 || abs(delta.x) == abs(delta.y)) {
+    return true;
+  }
+  
+  return false;
 }
 
-int verticalCheck (int** field, int x, int y, int size) {
-    int i = 0;
-    if (y + size - 1 > 9) return 0;
-    
-    for (i = 0; i < size; ++i) {
-        if (field[x][y + i] != 0) return 0;
+field get_king(figure** board) {
+  int i, j;
+  field ret = {-1, -1};
+  
+  for (i = 0; i < 8; i++) {
+    for (j = 0; j < 8; j++) {
+      if (board[i][j] == KING) {
+        ret.x = i;
+        ret.y = j;
+        return ret;
+      }
     }
-    return 1;
+  }
+  return ret;
 }
 
-void place(int** field)
-{
-    int type, fillIndex = 0, y, x, amount, verticalFlaf;
+void red() {
+  printf("\033[1;31m");
+}
 
-    for (type = 4; type > 0; type--)
-    {
-        for (amount = 4 - type + 1; amount > 0; amount--)
-        {
-            while (fillIndex == 0) 
-            {
-                do
-                {
-                    y = rand() % 10;
-                    x = rand() % 10;
-                } while (field[y][x] != 0);
-                
-                if (horizontalCheck(field, y, x, type) == 1)
-                {
-                    printf("\n\n%d\n\n%d\n\n", x, y);
-                    fillIndex = horizontalFill(field, y, x, type);
-                    verticalFlaf = 1;
-                }
-                else
-                {
-                    printf("\n\n%d\n\n%d\n\n", x, y);
-                    if (verticalCheck(field, y, x, type) == 1)
-                    {
-                        fillIndex = verticalFill(field, y, x, type);
-                        verticalFlaf = 0;
-                    }
-                }
-            }
-            surround(y, x, verticalFlaf, type , field);
+void yellow() {
+  printf("\033[1;33m");
+}
+
+void reset() {
+  printf("\033[0m");
+}
+
+void print_board(figure** board) {
+  int row, column;
+  field current_queen_field;
+  
+  for (row = 0; row < 8; row++) {
+    for (column = 0; column < 8; column++) {
+      if (board[row][column] == QUEEN) {
+        current_queen_field.x = row;
+        current_queen_field.y = column;
+        
+        if (is_queen_threatening(current_queen_field, get_king(board))) {
+          red();
         }
+      } else if (board[row][column] == KING) {
+        yellow();
+      }
+      
+      printf("%d ", board[row][column]);
+      reset();
     }
+    printf("\n");
+  }
 }
 
-int checkShips(int** field)
-{
-    int i, j, countSh = 0;
-    for (i = 0; i < 10; i++)
-    {
-        for (j = 0; j < 10; j++)
-        {
-            if (field[i][j] > 0 && field[i][j] < 5)
-            {
-                countSh += field[i][j];
-            }
-        }
-    }
-    return countSh;
+int main() {
+  figure** board;
+  
+  srand((unsigned int)time(NULL));
+  
+  board = init_board();
+  print_board(board);
+  clear_board(board);
+  
+  return 0;
 }
-int main(void)
-{
-    int n = 10, m = 10, i, amount;
-    int** field = (int**)malloc(n * sizeof(int*));
-    for (i = 0; i < n; i++)
-    {
-        field[i] = (int*)malloc(m * sizeof(int));
-    }
 
-    srand(time(NULL));
-
-    printf("Autoplacement of ships\n");
-    fill(field);
-    place(field);
-    clear(field);
-    printf("final version:\n");
-    printField(field);
-    amount = checkShips(field);
-    printf("am = %d", amount);
-
-    for (i = 0; i < n; i++) 
-    {
-        free(field[i]);
-    }
-    free(field);
-
-    return 0;
-}
