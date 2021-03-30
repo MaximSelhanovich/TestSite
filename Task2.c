@@ -3,7 +3,7 @@
 #include <time.h>
 #include <malloc.h>
 
-int surround(int x, int y, int verticalFlaf, int type, int** field) {   
+int surround(int x, int y, int verticalFlaf, int type, int** field) {
     int  i, j;
     if (verticalFlaf == 1) {
         for (i = x - 1; i <= x + 1; i++) {
@@ -57,7 +57,7 @@ void printField(int** field) {
     }
 }
 
-int horizontalCheck (int** field, int y, int x, int size) {
+int horizontalCheck(int** field, int y, int x, int size) {
     int i = 0;
     if (x + size - 1 > 9) return 0;
     
@@ -67,28 +67,28 @@ int horizontalCheck (int** field, int y, int x, int size) {
     return 1;
 }
 
-int horizontalFill (int** field, int y, int x, int size) {
+int horizontalFill(int** field, int y, int x, int size) {
     int i = 0;
-    
+
     for (i = 0; i < size; ++i) {
         field[y][x + i] = size;
     }
     return 1;
 }
 
-int verticalFill (int** field, int y, int x, int size) {
+int verticalFill(int** field, int y, int x, int size) {
     int i = 0;
-    
+
     for (i = 0; i < size; ++i) {
         field[y + i][x] = size;
     }
     return 1;
 }
 
-int verticalCheck (int** field, int y, int x, int size) {
+int verticalCheck(int** field, int y, int x, int size) {
     int i = 0;
     if (y + size - 1 > 9) return 0;
-    
+
     for (i = 0; i < size; ++i) {
         if (field[y + i][x] != 0) return 0;
     }
@@ -107,7 +107,7 @@ void place(int** field) {
                     y = rand() % 10;
                     x = rand() % 10;
                 } while (field[y][x] != 0);
-                
+
                 if (horizontalCheck(field, y, x, type) == 1) {
                     fillIndex = horizontalFill(field, y, x, type);
                     verticalFlaf = 1;
