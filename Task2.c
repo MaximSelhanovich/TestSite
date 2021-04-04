@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <conio.h>
 int checkNULL (void *ptr) {
     if (ptr == NULL) {
         printf("Allocation error!\n");
@@ -59,19 +59,20 @@ char ** getTwoDimensionalArray(unsigned int linesNumber) {
     return text;
 }
 
-void getText(char **text, unsigned int *linesNumber) {
+char ** getText(char **text, unsigned int *linesNumber) {
     unsigned int i = 0;
+    char tempChar;
     char *tempLine = NULL;
     char **tempText = NULL;
-    unsigned int length = 0;
 
-    while (getchar() != '\n') {
+    while ((tempChar = getchar()) != '\n') {
+        ungetch(tempChar);
         if (i >= *linesNumber) {
             tempText =  (char **)realloc(text, *linesNumber + 3);
 
             if (checkNULL(tempText)) {
-                text = clearTwoTwoDimensionalArray((void **)text, linesNumber);
-                return;
+                return clearTwoTwoDimensionalArray((void **)text, linesNumber);
+
             }
             text = tempText;
             *linesNumber += 3;
@@ -79,16 +80,16 @@ void getText(char **text, unsigned int *linesNumber) {
 
         scanf(" %[^\n]254s", text[i]);
         getchar();
-        length = lineLength(text[i]) + 1;
-        tempLine = (char *)realloc(text[i], length);
+        printf("\n\n%u\n\n", lineLength(text[i]) + 1);
+        tempLine = (char *)realloc(text[i], lineLength(text[i]) + 1);
 
         if (checkNULL(tempLine)) {
-            text = clearTwoTwoDimensionalArray((void **)text, linesNumber);
-            return;
+            return clearTwoTwoDimensionalArray((void **)text, linesNumber);
         }
         text[i] = tempLine;
         ++i;
     }
+    return text;
 }
 
 int main() {
@@ -125,7 +126,7 @@ int main() {
         return 1;
     }
 
-    getText(text, &linesNumber);
+    text = getText(text, &linesNumber);
     printf("May be yes may be no");
 
     text = clearTwoTwoDimensionalArray((void **)text, &linesNumber);
