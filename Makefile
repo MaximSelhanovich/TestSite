@@ -9,7 +9,7 @@ test:
 	./Task2
 	
 valgrind_check:
-	valgrind ./Task2
+	valgrind --track-origins=yes ./Task2
 	
 linter_check:
 	cpplint Task2.c
