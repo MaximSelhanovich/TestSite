@@ -69,7 +69,7 @@ void getText(char **text, unsigned int *linesNumber) {
             tempText =  (char **)realloc(text, *linesNumber + 3);
 
             if (checkNULL(tempText)) {
-                clearTwoTwoDimensionalArray((void **)text, linesNumber);
+                text = clearTwoTwoDimensionalArray((void **)text, linesNumber);
                 return;
             }
             text = tempText;
@@ -79,9 +79,9 @@ void getText(char **text, unsigned int *linesNumber) {
         scanf(" %[^\n]254s", text[i]);
         getchar();
         tempLine = (char *)realloc(text[i], lineLength(text[i] + 1));
-        
+
         if (checkNULL(tempLine)) {
-            clearTwoTwoDimensionalArray((void **)text, linesNumber);
+            text = clearTwoTwoDimensionalArray((void **)text, linesNumber);
             return;
         }
         text[i] = tempLine;
