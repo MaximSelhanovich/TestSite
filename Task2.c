@@ -43,7 +43,7 @@ char ** getTwoDimensionalArray(unsigned int linesNumber) {
     unsigned int i, success = 1;
 
     text = (char **)malloc(linesNumber * sizeof(char *));
-    if (checkNULL(text)) return clearTwoTwoDimensionalArray((void **)text, 0);
+    if (checkNULL(text)) return NULL;
 
     for (i = 0; i < linesNumber; ++i) {
         text[i] = (char *)malloc(255 * sizeof(char));
