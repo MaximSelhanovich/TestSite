@@ -66,7 +66,7 @@ int main() {
         }
     }
 
-    for (i = linesNumber - 1; i >= 0; --i) {
+    for (i = 0; i < linesNumber; i++) {
         free(text[i]);
     }
     free(text);
