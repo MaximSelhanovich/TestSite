@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int checkNULL (void *ptr) {
-    if(ptr == NULL) {
+    if (ptr == NULL) {
         printf("Allocation error!\n");
         return 1;
     }
@@ -12,23 +12,29 @@ int checkNULL (void *ptr) {
 /*Does not include '\n' and '\0' when counting*/
 unsigned int lineLength(char *line) {
     unsigned int counter = 0;
-    while(line[counter] && line[counter] != '\n') ++counter;
+
+    if (!line) {
+        printf("\nIncorrect string!\n");
+        return 0;
+    }
+
+    while (line[counter] && line[counter] != '\n') ++counter;
     return counter;
 }
 
 void *clearTwoTwoDimensionalArray(void **arrayToClean,
-                                  unsigned int rowsNumber) {
+                                  unsigned int *linesNumber) {
     unsigned int i = 0;
     
-    if(!arrayToClean) {
+    if (!arrayToClean) {
         printf("This array is already clean.\n");
         return NULL;
     }
     
-    for(i = 0; i < rowsNumber; ++i) free(arrayToClean[i]);
+    for (i = 0; i < *linesNumber; ++i) free(arrayToClean[i]);
     free(arrayToClean);
-
-    printf("Memory cleaned\n");
+    *linesNumber = 0;
+    printf("\nMemory cleaned\n");
     return NULL;
 }
 
@@ -37,21 +43,23 @@ char ** getTwoDimensionalArray(unsigned int linesNumber) {
     unsigned int i, success = 1;
 
     text = (char **)malloc(linesNumber * sizeof(char *));
-    if(checkNULL(text)) return clearTwoTwoDimensionalArray((void **)text, 0);
+    if (checkNULL(text)) return clearTwoTwoDimensionalArray((void **)text, 0);
 
-    for(i = 0; i < linesNumber; ++i) {
-        text[i] = (char *)malloc(255 * sizeof(char *));
-        if(checkNULL(text[i])) {
+    for (i = 0; i < linesNumber; ++i) {
+        text[i] = (char *)malloc(255 * sizeof(char));
+
+        if (checkNULL(text[i])) {
             success = 0; 
             break;
         }
     }
-    if (!success) return clearTwoTwoDimensionalArray((void **)text, i);
+
+    if (!success) return clearTwoTwoDimensionalArray((void **)text, &i);
 
     return text;
 }
 
-void getText(char **text, int *linesNumber) {
+void getText(char **text, unsigned int *linesNumber) {
     unsigned int i = 0;
     char *tempLine = NULL;
     char **tempText = NULL;
@@ -60,8 +68,8 @@ void getText(char **text, int *linesNumber) {
         if (i >= *linesNumber) {
             tempText =  (char **)realloc(text, *linesNumber + 3);
 
-            if(checkNULL(tempText)) {
-                clearTwoTwoDimensionalArray((void **)text, *linesNumber);
+            if (checkNULL(tempText)) {
+                clearTwoTwoDimensionalArray((void **)text, linesNumber);
                 return;
             }
             text = tempText;
@@ -71,8 +79,9 @@ void getText(char **text, int *linesNumber) {
         scanf(" %[^\n]254s", text[i]);
         getchar();
         tempLine = (char *)realloc(text[i], lineLength(text[i] + 1));
-        if(checkNULL(tempLine)) {
-            clearTwoTwoDimensionalArray((void **)text, *linesNumber);
+        
+        if (checkNULL(tempLine)) {
+            clearTwoTwoDimensionalArray((void **)text, linesNumber);
             return;
         }
         text[i] = tempLine;
@@ -81,24 +90,25 @@ void getText(char **text, int *linesNumber) {
 }
 
 int main() {
-    int linesNumber = 5; 
+    unsigned int linesNumber = 5, i = 0, success = 1; 
     char **text = NULL;
 
-    text = getTwoDimensionalArray(linesNumber);
-    if(!text) return 1;
-    getText(text, &linesNumber);
-    printf("May be yes may be no");
-    /*text = (char **)malloc(rowsNumber * sizeof(char *));
-    if(!text) {
+    /*text = getTwoDimensionalArray(linesNumber);
+    if(!text) return 1;*/
+
+    text = (char **)malloc(linesNumber * sizeof(char *));
+
+    if (!text) {
         printf("Allocation error!\n");
         free(text);
         text = NULL;
         return 1;
     }
 
-    for(; i < rowsNumber; ++i) {
+    for (i = 0; i < linesNumber; ++i) {
         text[i] = (char *)malloc(255 * sizeof(char));
-        if(!text[i]) {
+
+        if (!text[i]) {
             printf("Allocation error!");
             success = 0;
             break;
@@ -107,12 +117,15 @@ int main() {
 
     if (success == 0) {
         for (; i >= 0; i--) free(text[i]);
+
         free(text);
         text = NULL;
         return 1;
-    }*/
+    }
 
+    getText(text, &linesNumber);
+    printf("May be yes may be no");
 
-    text = clearTwoTwoDimensionalArray((void **)text, linesNumber);
+    text = clearTwoTwoDimensionalArray((void **)text, &linesNumber);
     return 0;
 }
