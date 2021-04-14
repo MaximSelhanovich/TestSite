@@ -9,7 +9,8 @@ test:
 	./Task2
 	
 valgrind_check:
-	valgrind --track-origins=yes ./Task2
+	echo "qwe\n\n" >> input.txt
+	valgrind --track-origins=yes ./Task2 << input.txt
 	
 linter_check:
 	cpplint Task2.c
