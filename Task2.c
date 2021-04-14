@@ -149,11 +149,11 @@ void getText(char ***text, unsigned int *linesNumber) {
 
     }
     while ((*text)[i][0] != '\n');
-    free((*text)[i]);
+    /*free((*text)[i]);
 
     *linesNumber = i;
 
-    /**text = resizeText(*text, *linesNumber);*/
+    *text = resizeText(*text, *linesNumber);*/
 }
 
 int main() {
